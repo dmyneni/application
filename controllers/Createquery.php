@@ -66,23 +66,26 @@ class createquery extends CI_Controller
 				$this->session->unset_userdata('query_id');		
 			  }
 		  }
-			  if ($this->session->userdata('query_id')) {
-					$data['query']=$this->createquery_model->get_query($this->session->userdata('query_id'));
-					if (!isset($binds)) {  # not provided in post
-						$data['binds']=$this->createquery_model->get_binds($this->session->userdata('query_id'));							
-					} else {
-						$data['binds']=$binds;
-					}
-				
-					$data['query_id']=$this->session->userdata('query_id');
-					$data['title']='Edit Query';
-					$data['validate_failed']=0;
-			  } else {
-					$data['query']=['query_title'=>'','version'=>'','description'=>'','text'=>''];
-					$data['query_id']='';
-					$data['title']='Create Query';
-					$data['validate_failed']=0;
-			  }		
+
+		  if ($this->session->userdata('query_id')) {
+				$data['query']=$this->createquery_model->get_query($this->session->userdata('query_id'));
+
+				if (!isset($binds)) {  # not provided in post
+					$data['binds']=$this->createquery_model->get_binds($this->session->userdata('query_id'));							
+				} else {
+					$data['binds']=$binds;
+				}
+			
+				$data['query_id']=$this->session->userdata('query_id');
+				$data['title']='Edit Query';
+				$data['validate_failed']=0;
+		  } else {
+				$data['query']=['query_title'=>'','version'=>'','description'=>'','text'=>''];
+				$data['query_id']='';
+				$data['title']='Create Query';
+				$data['validate_failed']=0;
+		  }		
+
 		  if ($this->form_validation->run() == FALSE) {
 			  $data['validate_failed']=1;			  
 			  $this->load->view('createquery_view',$data);			
@@ -123,7 +126,7 @@ class createquery extends CI_Controller
 			$this->form_validation->set_value("status","Successfully created");
 			$this->session->set_flashdata('status', '<span class="text-success">Successfully created</span>');
 			$this->load->view('createquery_view',$data);          
-		  }else if ($this->input->post('btn_validate') == "Validate") {	
+		}else if ($this->input->post('btn_validate') == "Validate") {	
 			if ($binds=$this->createquery_model->list_binds($sqltext)) {
 				foreach ($binds as $bind=>$var) {
 					if (!isset($var['value'])) 
@@ -141,30 +144,26 @@ class createquery extends CI_Controller
 			} else {
 				$testresult=$this->createquery_model->validatequery($sqltext,null);
 			}		
-				if (isset($testresult)) {
-					if(sizeof($testresult)==1)
-					{
-						$error=$testresult['error'];
-						$this->session->set_flashdata('status', '<span class="text-danger">'.$error['message'].'</span>');
-						$data['validate_failed']=1;
-						$this->load->view('createquery_view',$data);
-					}else
-					{
-						$this->session->set_flashdata('status', '<span class="text-success">Review the output below and then save the changes.</span>');
-						$data['validate_failed']=0;
-						$this->load->view('createquery_view',$data);
-						$this->load->view('templates/testresults',$testresult);
-					}
+			if (isset($testresult)) {
+				if(sizeof($testresult)==1)
+				{
+					$error=$testresult['error'];
+					$this->session->set_flashdata('status', '<span class="text-danger">'.$error['message'].'</span>');
+					$data['validate_failed']=1;
+					$this->load->view('createquery_view',$data);
+				}else
+				{
+					$this->session->set_flashdata('status', '<span class="text-success">Review the output below and then save the changes.</span>');
+					$data['validate_failed']=0;
+					$this->load->view('createquery_view',$data);
+					$this->load->view('templates/testresults',$testresult);
 				}
+			}
                     
-               }
-               else if ($this->input->post('btn_action') == "Add Action")
-			   {
-                   $dataset=["columdet"=>$this->addaction_model->getColums($this->input->post("txt_queryid")),"query_id"=>$this->input->post("txt_queryid")];
-                   $this->load->view('manageaction_view',$dataset);
-              }
-                    
- 
+		} else if ($this->input->post('btn_action') == "Add Action"){
+			   $dataset=["columdet"=>$this->addaction_model->getColums($this->input->post("txt_queryid")),"query_id"=>$this->input->post("txt_queryid")];
+			   $this->load->view('manageaction_view',$dataset);
+		}
      }
 }
 ?>

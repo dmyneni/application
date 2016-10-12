@@ -9,7 +9,7 @@ require_once ("application/asset/inc/config.ui.php");
  YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
  E.G. $page_title = "Custom Title" */
 
-$page_title = "Manage Query";
+$page_title = "Manage Queries";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -50,7 +50,7 @@ include ("application/asset/inc/nav.php");
 				
 							<header>
 							<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-							<h2>Manage Query </h2>
+							<h2><?php echo $page_title;?></h2>
 				        &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-sm" onclick="add_query()"><i class="glyphicon glyphicon-plus"></i> Add Query</button>
         				&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-default btn-sm" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
 		

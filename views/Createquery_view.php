@@ -11,8 +11,6 @@ require_once("application/asset/inc/config.ui.php");
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
 E.G. $page_title = "Custom Title" */
 
-$page_title = "Edit Profile";
-
 /* ---------------- END PHP Custom Scripts ------------- */
 
 //include header
@@ -59,8 +57,8 @@ include("application/asset/inc/nav.php");
 					<!-- Widget ID (each widget will need unique ID) registrtion form-->
 					<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
 						<header>
-							<span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-							<h2>Create Query </h2>				
+<!--							<span class="widget-icon"> <i class="fa fa-edit"></i> </span> -->
+							<h2><?php echo $title;?></h2>				
 							
 						</header>
 
@@ -80,7 +78,6 @@ include("application/asset/inc/nav.php");
           $attributes = array("class" => "smart-form", "id" => "createquery", "name" => "createquery");
           echo form_open("/createquery/index", $attributes);?>
           <fieldset>
-               <legend><?php echo $title;?></legend>
 
                <div class="row">
 					<section>

@@ -62,17 +62,22 @@ class menu_model extends CI_Model
 //	$user_id=$this->session->userdata('user_id');
 		$current_account_id=$this->session->userdata('current_account_id');	
 		$sql="select
-		menu_id,text,icon from menus2 where type='L0' and (class='system' or class=(select db_type from db_accounts a, db_details d where a.db_id=d.db_id and a.account_id=?)) order by priority";
+		menu_id,text,icon,type,class from menus2 where level=1 and (class='system' or class=(select db_type from db_accounts a, db_details d where a.db_id=d.db_id and a.account_id=?)) order by priority";
 // check users role and preferences to restrict the list after testing.
 		$query = $this->db->query($sql,array($current_account_id));	
 		$result=$query->result_array();
 		$nav=[];
+		$cnt=0;
 		foreach($result as $row) {
 			$nav[$row['menu_id']]=array('title'=>$row['text'],'icon'=>$row['icon']);
+			if ($row['type']=='menu' && $row['class']!='system') {
+				$nav[$row['menu_id']]['title_append']='<div hidden id="target-'.$cnt.'" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><font color=white><i>Can drop here</i></font><font color=red background=white> <i class="fa fa-bullseye" aria-hidden="true"></i></font></div>';
+				$cnt++;
+			}
 		}
 	
 		$sql="select
-		menu_id,text,icon,parent_menu_id,link_id from menus2 where type='L1' and (class='system' or class=(select db_type from db_accounts a, db_details d where a.db_id=d.db_id and a.account_id=?)) order by parent_menu_id, priority";
+		menu_id,text,icon,type,parent_menu_id,link_id,class from menus2 where level=2 and (class='system' or class=(select db_type from db_accounts a, db_details d where a.db_id=d.db_id and a.account_id=?)) order by parent_menu_id, priority";
 // check users role and preferences to restrict the list after testing.
 		$query = $this->db->query($sql,array($current_account_id));	
 		$result=$query->result_array();
@@ -91,13 +96,19 @@ class menu_model extends CI_Model
 			$sub[$row['menu_id']]=array('title'=>$row['text'],'icon'=>$row['icon']);
 			if ($row['link_id']) 
 				$sub[$row['menu_id']]['url']=base_url().'index.php/changemenu/index/'.$row['menu_id'];
+			else {
+				if ($row['type']=='menu' && $row['class']!='system') {
+					$nav[$row['menu_id']]['title_append']='<div hidden id="target-'.$cnt.'" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"><font color=white><i>Can drop here</i></font><font color=red background=white> <i class="fa fa-bullseye" aria-hidden="true"></i></font></div>';
+					$cnt++;
+				}
+			}
 		}
 		if ($sub) {
 			$nav[$p_parent_id]['sub']=$sub;				
 		}
 		// Assumes only 3 levels deep.  SmartAdmin will support 5 levels deep, if want to expand.
 		$sql="select
-		l2.menu_id,l2.text,l2.icon,l2.parent_menu_id,l1.menu_id main_menu_id from menus2 l2, menus2 l1 where l1.menu_id=l2.parent_menu_id and l2.type='L2' and (l2.class='system' or l2.class=(select db_type from db_accounts a, db_details d where a.db_id=d.db_id and a.account_id=?)) order by l2.parent_menu_id, l2.priority";
+		l2.menu_id,l2.text,l2.icon,l2.parent_menu_id,l1.menu_id main_menu_id from menus2 l2, menus2 l1 where l1.menu_id=l2.parent_menu_id and l2.level=3 and (l2.class='system' or l2.class=(select db_type from db_accounts a, db_details d where a.db_id=d.db_id and a.account_id=?)) order by l2.parent_menu_id, l2.priority";
 		// check users role and preferences to restrict the list after testing.
 		$query = $this->db->query($sql,array($current_account_id));	
 		$result=$query->result_array();

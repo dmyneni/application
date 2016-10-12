@@ -177,9 +177,15 @@
 						
 					<!-- database dropdown -->
 					        <?php $attributes = array("class" => "smart-form", "id" => "changedbform", "name" => "changedbform");
-          echo form_open("changedb/index", $attributes);?>
-								<select class="input-sm" name=current_account_id onchange=submit(); >							
+								echo form_open("changedb/index", $attributes);?>
+								<select class="input-sm" name=current_account_id onchange=submit(); >
+									<option value=''
 									<?php 
+									if ($this->session->userdata('current_account_id'))
+										print "selected";
+									?>
+									>No database</option>
+									<?php
 									foreach ($databases as $key=>$val) {
 										print "<option value=".$val['account_id'];
 										if ($val['account_id'] == $this->session->userdata('current_account_id') )

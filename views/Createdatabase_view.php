@@ -11,7 +11,7 @@ require_once("application/asset/inc/config.ui.php");
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
 E.G. $page_title = "Custom Title" */
 
-$page_title = "Create Database";
+$page_title = "Add DB Connection";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -60,7 +60,7 @@ include("application/asset/inc/nav.php");
 					<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
 						<header>
 							<span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-							<h2>Add New Database </h2>				
+							<h2>Add DB Connection</h2>				
 							
 						</header>
 

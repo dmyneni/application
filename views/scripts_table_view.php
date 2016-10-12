@@ -8,7 +8,7 @@ require_once ("application/asset/inc/config.ui.php");
 
  YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
  E.G. $page_title = "Custom Title" */
-$page_title = $title;
+ 
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -48,8 +48,9 @@ include ("application/asset/inc/nav.php");
 					<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
 						<br>
 						<header>
-							<div class="pull-right"><a href=<?php echo base_url(); echo "index.php/explain/index/$query_id"?>>Explain</a></div><div ><span class="widget-icon"> <i class="fa fa-table"></i> </span>
-							<h2><?php echo $page_title;?> </h2></div>
+							<div class="pull-right"><a href=<?php echo base_url(); echo "index.php/explain/index/$query_id"?>>Explain</a>&nbsp; &nbsp; </div><div >&nbsp; &nbsp;
+												<div draggable="true" onmousedown="highlightTarget()" onmouseup="hideTarget()" ondrag="myFunction(event)" ondragstart="dragStart(event)" ondragend="hideTarget()" ondrag="dragging(event)" draggable="true" id="dragtarget" class="col-sm-3 col-md-3 col-lg-4"><span class="widget-icon"> <i class="fa fa-table"></i> </span><?php echo $title; ?></div> 
+																			</div>
 						</header>
 						<!-- widget div-->
 						<div>		
@@ -332,11 +333,21 @@ function dragStart(event) {
 }
 
 function dragging(event) {
-//    document.getElementById("demo").innerHTML = "Drop onto the desired menu";
+    document.getElementById("dragtarget").innerHTML = "Drop onto the desired menu";
 }
 
 function allowDrop(event) {
     event.preventDefault();
+}
+
+function highlightTarget() {
+	element=document.getElementById("target-1");
+	element.style.display='block';
+}
+
+function hideTarget() {
+	element=document.getElementById("target-1");
+	element.style.display='none';
 }
 
 function drop(event) {
