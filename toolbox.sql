@@ -316,7 +316,7 @@ CREATE TABLE `links` (
   `link_type` varchar(12) DEFAULT NULL,
   `target_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`link_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +325,7 @@ CREATE TABLE `links` (
 
 LOCK TABLES `links` WRITE;
 /*!40000 ALTER TABLE `links` DISABLE KEYS */;
-INSERT INTO `links` VALUES (2,'AWR High I/O','scripts','query',99),(3,'News','news','system',NULL),(4,'Manage Queries','managequery','system',NULL),(5,'Manage Users','users','system',NULL),(6,'DB Connections','createdatabase','system',NULL),(7,'Manage Roles','roles','system',NULL),(13,'Top SQL For An AWR Snapshot','scripts','query',140),(19,'Busiest AWR Snapshots','scripts','query',121),(20,'Database Uptime','scripts','query',61),(22,'Logout','logout','system',NULL);
+INSERT INTO `links` VALUES (2,'AWR High I/O','scripts','query',99),(3,'News','news','system',NULL),(4,'Manage Queries','managequery','system',NULL),(5,'Manage Users','users','system',NULL),(6,'DB Connections','createdatabase','system',NULL),(7,'Manage Roles','roles','system',NULL),(13,'Top SQL For An AWR Snapshot','scripts','query',140),(19,'Busiest AWR Snapshots','scripts','query',121),(20,'Database Uptime','scripts','query',61),(22,'Logout','logout','system',NULL),(23,'Add a Query','createquery','system',NULL);
 /*!40000 ALTER TABLE `links` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,8 +424,9 @@ CREATE TABLE `menus2` (
   `class` varchar(10) NOT NULL,
   `description` varchar(120) DEFAULT NULL,
   `link_id` int(11) DEFAULT NULL,
+  `level` int(11) NOT NULL,
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,7 +435,7 @@ CREATE TABLE `menus2` (
 
 LOCK TABLES `menus2` WRITE;
 /*!40000 ALTER TABLE `menus2` DISABLE KEYS */;
-INSERT INTO `menus2` VALUES (1,'L0',NULL,'Home',5,'fa-home','system',NULL,NULL),(2,'L0',NULL,'Contributor (OpsStars)',10,'fa-puzzle-piece','system',NULL,NULL),(3,'L0',NULL,'Dashboard',15,'fa-dashboard','oracle',NULL,NULL),(4,'L0',NULL,'Past Performance',25,'fa-history','oracle',NULL,NULL),(5,'L0',NULL,'Compliance Check',30,'fa-book','oracle',NULL,NULL),(6,'L0',NULL,'Admin (OpsStars)',7,'fa-user','system',NULL,NULL),(7,'L0',NULL,'Health Check',55,'fa-check-circle-o','oracle',NULL,NULL),(8,'L1',1,'News',1,NULL,'system','Show hot-issues from the team ',3),(9,'L1',2,'Manage Queries',1,NULL,'system','Add new queries',4),(10,'L1',6,'Manage Users',1,NULL,'system','Add or edit a new user',5),(11,'L1',2,'DB Connections',1,NULL,'system','Add or edit target database ac',6),(12,'L1',6,'Manage Roles',1,NULL,'system','View roles privileges and user',7),(13,'L1',4,'Busiest AWR Snapshots',15,NULL,'oracle',NULL,2),(15,'L1',1,'Logout',20,NULL,'system',NULL,22);
+INSERT INTO `menus2` VALUES (1,'menu',NULL,'Home',5,'fa-home','system',NULL,NULL,1),(2,'menu',NULL,'Contributor (OpsStars)',10,'fa-puzzle-piece','system',NULL,NULL,1),(3,'menu',NULL,'Dashboard',15,'fa-dashboard','oracle',NULL,NULL,1),(4,'menu',NULL,'Past Performance',25,'fa-history','oracle',NULL,NULL,1),(5,'menu',NULL,'Compliance Check',30,'fa-book','oracle',NULL,NULL,1),(6,'menu',NULL,'Admin (OpsStars)',7,'fa-user','system',NULL,NULL,1),(7,'menu',NULL,'Health Check',55,'fa-check-circle-o','oracle',NULL,NULL,1),(8,'item',1,'News',1,NULL,'system','Show hot-issues from the team ',3,2),(9,'item',2,'Manage Queries',1,NULL,'system','Add new queries',4,2),(10,'item',6,'Manage Users',1,NULL,'system','Add or edit a new user',5,2),(11,'item',2,'DB Connections',1,NULL,'system','Add or edit target database ac',6,2),(12,'item',6,'Manage Roles',1,NULL,'system','View roles privileges and user',7,2),(13,'item',4,'Busiest AWR Snapshots',15,NULL,'oracle',NULL,2,2),(15,'item',1,'Logout',20,NULL,'system',NULL,22,2),(16,'item',2,'Add a Query',3,NULL,'system','Contributors can add new queries',23,2);
 /*!40000 ALTER TABLE `menus2` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -915,4 +916,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-11  7:21:48
+-- Dump completed on 2016-10-11 19:17:09
