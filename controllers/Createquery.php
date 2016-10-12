@@ -55,8 +55,8 @@ class createquery extends CI_Controller
           $this->form_validation->set_rules("txt_script", "Script", "trim|required");
 		  $this->form_validation->set_rules("txt_title", "Title", "trim|required");
           $this->form_validation->set_value("status","");
-	      $headerdata=$this->menu_model->buildmenu($this->session->userdata('menu_id'),$this->session->userdata('menu_item_id'));
-	      $this->load->view('templates/header',$headerdata);
+	      $data=$this->menu_model->buildmenu($this->session->userdata('menu_id'),$this->session->userdata('menu_item_id'));
+#	      $this->load->view('templates/header',$headerdata);
      
 		  if ($this->uri->segment(3)) {  # segment 3 is query_id
 			  	$query_id = $this->uri->segment(3);
@@ -69,7 +69,6 @@ class createquery extends CI_Controller
 
 		  if ($this->session->userdata('query_id')) {
 				$data['query']=$this->createquery_model->get_query($this->session->userdata('query_id'));
-
 				if (!isset($binds)) {  # not provided in post
 					$data['binds']=$this->createquery_model->get_binds($this->session->userdata('query_id'));							
 				} else {

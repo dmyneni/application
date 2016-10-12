@@ -111,7 +111,7 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-2">Query Title</label>
 						<div class="col col-6">
 							<label class="input"> 
-								<input class="form-control" id="txt_title" name="txt_title" placeholder="Query title" type="text" value="<?php echo set_value('txt_title'); ?>" />
+								<input class="form-control" id="txt_title" name="txt_title" placeholder="Query title" type="text" value="<?php echo set_value('txt_title',$query['query_title']); ?>" />
   								 
 							</label>
 							</div>
@@ -126,7 +126,7 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-2">SQL Query</label>
 						<div class="col col-9">
 							<label class="input"> 
-								<textarea  onchange=disable_create(); rows="6" cols="90" id="txt_script" name="txt_script" placeholder="SQL statement"><?php echo set_value('txt_script');?></textarea>
+								<textarea  onchange=disable_create(); rows="6" cols="90" id="txt_script" name="txt_script" placeholder="SQL statement"><?php echo set_value('txt_script',$query['text']);?></textarea>
   								 
 							</label>
 							</div>
@@ -161,7 +161,7 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-2">Description</label>
 						<div class="col col-9">
 							<label class="input"> 
-								<textarea class="form-control" rows="4" cols="90" id="txt_script" name="txt_description" placeholder="Description"><?php echo set_value('txt_description');?></textarea>
+								<textarea class="form-control" rows="4" cols="90" id="txt_script" name="txt_description" placeholder="Description"><?php echo set_value('txt_description',$query['description']);?></textarea>
   								 
 							</label>
 							</div>
@@ -175,10 +175,10 @@ include("application/asset/inc/nav.php");
                
                <div class="row" align="right">
                     <input type="hidden" name="txt_queryid" id="txt_queryid" value="<?php echo $query_id;?>">
-					<input type="hidden" name="txt_verion" id="txt_version" value="<?php echo set_value('txt_version'); ?>">
+					<input type="hidden" name="txt_verion" id="txt_version" value="<?php echo set_value('txt_version',$query['version']); ?>">
                     
-                    <input id="btn_validate" name="btn_validate" type="submit" class="btn btn-primary btn-sm" value="Validate" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_create" name="btn_create" type="submit" class="btn btn-primary btn-sm" value="Create" />
+                    <input id="btn_validate" name="btn_validate" type="submit" class="btn btn-primary btn-sm" value="Validate" disabled />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_create" name="btn_create" type="submit" class="btn btn-primary btn-sm" value="Create" disabled />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_action" name="btn_action" type="submit" class="btn btn-primary btn-sm" value="Add Action" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_columns" name="btn_columns" type="submit" class="btn btn-primary btn-sm" value="Column Options" />					
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default btn-sm" value="Cancel" />

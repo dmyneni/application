@@ -341,13 +341,17 @@ function allowDrop(event) {
 }
 
 function highlightTarget() {
-	element=document.getElementById("target-1");
-	element.style.display='block';
+	x=document.getElementsByClassName("droptarget");
+	for(var i=0;i<x.length;i++){
+		x[i].style.display='block';
+	}
 }
 
 function hideTarget() {
-	element=document.getElementById("target-1");
-	element.style.display='none';
+	x=document.getElementsByClassName("droptarget");
+	for(var i=0;i<x.length;i++){
+		x[i].style.display='none';
+	}
 }
 
 function drop(event) {
