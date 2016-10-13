@@ -17,13 +17,10 @@ class Logout extends CI_Controller {
 	
 	public function index()
 	{
-unset($_SESSION['username']);
-unset($_SESSION['user_id']);
-//echo "Thank you for using";
-$data['login']='Login';
-$this->load->view('templates/header',$data);
-$this->load->view('login_view');
-$this->load->view('templates/footer');
+		unset($_SESSION['username']);
+		unset($_SESSION['user_id']);			
+
+		redirect('login/index');
 	}
 	
 }

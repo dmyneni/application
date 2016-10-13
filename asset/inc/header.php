@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-		<title> <?php echo $page_title != "" ? $page_title." - " : ""; echo "OpsStars ($page_title)";?> </title>
+		<title> <?php echo "OpsStars ("; echo $page_title != "" ? $page_title	 : ""; echo ")";?> </title>
 		<meta name="description" content="">
 		<meta name="author" content="">
 
@@ -94,7 +94,7 @@
 
 						<!-- PLACE YOUR LOGO HERE -->
 						<!-- need to edit spacing for "id=logo" -->
-						<span> &nbsp; &nbsp; <img height=47 src="<?php echo base_url()?>application/assets/images/OpsStars Logo_CMYK.png"></img> &nbsp; &nbsp; &nbsp; &nbsp; </span>
+						<span> &nbsp; &nbsp; <img height=47 src="<?php echo base_url()?>application/asset/img/logo.png"></img> &nbsp; &nbsp; &nbsp; &nbsp; </span>
 						<!-- END LOGO PLACEHOLDER -->
 						<?php 
 						if ($this->session->userdata('user_id')) {		// check if logged on
@@ -170,14 +170,14 @@
 
 					</div>
 					<!-- end projects dropdown -->
-						<?php 
-						if ($this->session->userdata('user_id')) {		// check if logged in
-						?>
-						<div>Current Database: 					
-						
+					<div class="col-xs-2 col-sm-2 col-md-3 col-lg-4">
 					<!-- database dropdown -->
-					        <?php $attributes = array("class" => "smart-form", "id" => "changedbform", "name" => "changedbform");
-								echo form_open("changedb/index", $attributes);?>
+					<?php 
+					if ($this->session->userdata('user_id')) {		// check if logged in
+					?>
+						<form method=post action="<?php echo base_url(); ?>index.php/changedb" class="header-search pull-right">
+							<div>
+							<span><font color="silver"><i class="fa fa-database"></i> Current Database: </font></span>
 								<select class="input-sm" name=current_account_id onchange=submit(); >
 									<option value=''
 									<?php 
@@ -193,12 +193,11 @@
 										print ">".$val['db_name']."</option>";
 									} ?>
 								</select>
-							<?php echo form_close(); ?>
-						</div>
-						<?php } ?>
-			
+							</div>
+						</form>
+					<?php } ?>
 					<!-- end database dropdown -->
-
+					</div>
 					<!-- pulled right: nav area -->
 					<div class="pull-right">
 

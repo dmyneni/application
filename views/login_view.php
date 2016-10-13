@@ -27,7 +27,7 @@ if (sizeof($menu_path) == 2)
 	$page_nav[$menu_path[0]]["sub"][$menu_path[1]]["active"] = true;
 else if (sizeof($menu_path) == 3) 
 		$page_nav[$menu_path[0]]["sub"][$menu_path[1]]["sub"][$menu_path[2]]["active"] = true;
-	
+
 include("application/asset/inc/nav.php");
 
 ?>
@@ -59,7 +59,7 @@ include("application/asset/inc/nav.php");
 					<!-- Widget ID (each widget will need unique ID) registrtion form-->
 					<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
 						<header>
-							<span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+							<span class="widget-icon"> <i class="fa fa-user"></i> </span>
 							<h2>Login </h2>				
 							
 						</header>
@@ -82,10 +82,6 @@ include("application/asset/inc/nav.php");
         
 								
 								<!-- <form id="smart-form-register" class="smart-form"> -->
-									<header>
-										Login
-									</header>
-
 									<fieldset>
 										<section>
 											<div class="row">

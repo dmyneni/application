@@ -12,9 +12,8 @@ class login extends CI_Controller
           $this->load->helper('html');
           $this->load->database();
           $this->load->library('form_validation');
-          //load the login model
           $this->load->model('login_model');
-          $this->load->model('menu_model');
+		  $this->load->model('menu_model');		  
 }
 
      public function index()
@@ -24,8 +23,20 @@ class login extends CI_Controller
           $password = $this->input->post("txt_password");
 	  
 		$current_menu_id=1; // since there is no session, use the configuration default
-		$current_item=38; 
+		$current_item=15; 
 
+		$page_nav = array(
+			1 => array(
+				"title" => "Home",
+				"icon" => "fa-home",
+				"sub" => array(
+					15 => array(
+						"title" => "Login",
+						"url" => base_url().'index.php/login'
+					),
+				)
+			)
+		);			
 
           //set validations
           $this->form_validation->set_rules("txt_username", "Username", "trim|required");
@@ -38,19 +49,6 @@ class login extends CI_Controller
           else if ($this->form_validation->run() == FALSE)
           {
               //validation fails  
-
-			$page_nav = array(
-				"1" => array(
-					"title" => "Home",
-					"icon" => "fa-home",
-					"sub" => array(
-						"38" => array(
-							"title" => "Login",
-							"url" => base_url().'index.php/login'
-						),
-					)
-				)
-			);			
 
 			$data['page_nav']=$page_nav;
 			$this->load->view('login_view',$data);
@@ -87,7 +85,7 @@ class login extends CI_Controller
                          );
                          
                          $this->session->set_userdata($sessiondata);
-
+						
                          redirect("changemenu/index/".$this->session->userdata('default_menu_id')."/".$this->session->userdata('default_menu_item_id'));
                     	}
                     }
@@ -96,10 +94,6 @@ class login extends CI_Controller
                          $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
                          redirect('login/index');
                     }
-               }
-               else
-               {
-                    redirect('login/index');
                }
           }
      }

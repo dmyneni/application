@@ -8,7 +8,7 @@ require_once ("application/asset/inc/config.ui.php");
 
  YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
  E.G. $page_title = "Custom Title" */
- 
+ $page_title=$title;
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -35,30 +35,42 @@ include ("application/asset/inc/nav.php");
 	<?php
 		//configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
 		//$breadcrumbs["New Crumb"] => "http://url.com"
-		$breadcrumbs["Scripts"] = "";
 		include("application/asset/inc/ribbon.php");
+		
+		$this->session->set_userdata(['drawchart'=>true]);  // testing
+		
 	?>
 
-    <div class="container">
+    <div class="container"><br>
        <section id="widget-grid" class="">	
 			<!-- row -->
 			<div class="row"> 
 			<!-- NEW WIDGET START -->
-				<article class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+				<article 
+					<?php if ($this->session->userdata('drawchart')==true) 
+						print 'class="col-xs-4 col-sm-5 col-md-6 col-lg-7"';
+					else 
+						print 'class="col-xs-4 col-sm-5 col-md-6 col-lg-11"';
+					?>
+					>
 					<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
-						<br>
-						<header>
-							<div class="pull-right"><a href=<?php echo base_url(); echo "index.php/explain/index/$query_id"?>>Explain</a>&nbsp; &nbsp; </div><div >&nbsp; &nbsp;
-												<div draggable="true" onmousedown="highlightTarget()" onmouseup="hideTarget()" ondrag="myFunction(event)" ondragstart="dragStart(event)" ondragend="hideTarget()" ondrag="dragging(event)" draggable="true" id="dragtarget" class="col-sm-3 col-md-3 col-lg-4"><span class="widget-icon"> <i class="fa fa-table"></i> </span><?php echo $title; ?></div> 
-																			</div>
-						</header>
 						<!-- widget div-->
-						<div>		
-							<!-- end widget edit box -->
-							<div class="jarviswidget-editbox">
-								<!-- This area used as dropdown edit box -->
+						<div>							
+						<header>
+							<div class="pull-right">
+								<a href=<?php echo base_url(); echo "index.php/explain/index/$query_id"?>>Explain</a>&nbsp; &nbsp; 
 							</div>
-							<!-- end widget edit box -->
+							<div >&nbsp; &nbsp;
+								<div draggable="true" onmousedown="highlightTarget()" onmouseup="hideTarget()" ondrag="myFunction(event)" ondragstart="dragStart(event)" ondragend="hideTarget()" ondrag="dragging(event)" draggable="true" id="dragtarget" class="col-sm-3 col-md-4 col-lg-5">
+									<span class="widget-icon"> <i class="fa fa-table"></i> </span>
+									<?php echo $title; ?>
+								</div> 
+								<?php  if ($this->session->userdata('drawchart')==false) { ?>
+									&nbsp; &nbsp; <span><a onclick=showchart();><i class="fa fa-bar-chart"></a></i></span>
+								<?php } ?>
+							</div>
+						</header>
+
 							<!-- widget content -->
 							<div class="widget-body no-padding">
 								<table id="table" class="table table-striped table-bordered" "pull-left" width=100%>
@@ -89,15 +101,34 @@ include ("application/asset/inc/nav.php");
 						<!-- end widget div -->		
 					</div>
 				</article>
+			<!-- NEW WIDGET START -->
+				<article class="col-xs-4 col-sm-4 col-md-4 col-lg-4" <?php if ($this->session->userdata('drawchart')==false) echo "hidden"; ?> >
+					<div class="jarviswidget" id="wid-id-5" data-widget-editbutton="false" data-widget-custombutton="false">
+						<header><div>&nbsp; &nbsp; Chart
+							<?php  if ($this->session->userdata('drawchart')==true) {?>
+								&nbsp; &nbsp; <span class="pull-right"><a onclick=hidechart();><span class="fa-stack"><i class="fa fa-bar-chart fa-stack-1x"></i><font color=#ff7777><i class="fa fa-ban fa-stack-1x"></i></font></span></span></a></i></span>
+							<?php } ?>
+						</header>
+						<div>
+							<canvas id="myChart"  width="200" height="200"></canvas>
+							<div>
+							&nbsp;<br>
+							</div>
+						</div>
+					</div>
+				</article>
 			</div> <!-- end of row  -->
 		</section>
 	</div>
+	<form method=post name=toggle action=<? print base_url().'/index.php/scripts/index/'.$query_id;?>><input id=showchart type=hidden value=<?php echo $this->session->userdata('showchart');?>></form>
+# 	foreach {bind...
 
 <?php //include required scripts
 include ("application/asset/inc/scripts.php");
 ?> 
 
 <!-- PAGE RELATED PLUGIN(S) -->
+<script src="<?php echo ASSETS_URL; ?>/lib/chartjs/chart.min.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/datatables/dataTables.colVis.min.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/datatables/dataTables.tableTools.min.js"></script>
@@ -221,23 +252,24 @@ if (isset($has_one)) { // not needed otherwise
   ],
 		"initComplete": function(settings,json) {
 		<?php 
-		  $cnt=0;$cnt2=0;
-		  foreach ($columns as $column) {
-			  if ($column['chart_labels_column'] == true ) {
-				echo "labeldata=table.column(".$cnt.").data().toArray(),
-				";
-				$chart=true;
-			  } elseif ($column['chart_color']) {
-				echo "chartdata".$cnt2."=table.column(".$cnt.").data().toArray(),
-				";
-				$cnt2++;
+			  $cnt=0;$cnt2=0;
+			  foreach ($columns as $column) {
+				  if ($column['chart_labels_column'] == true ) {
+					echo "labeldata=table.column(".$cnt.").data().toArray(),
+					";
+					$chart=true;
+				  } elseif ($column['chart_color']) {
+					echo "chartdata".$cnt2."=table.column(".$cnt.").data().toArray(),
+					";
+					$cnt2++;
+				  }
+				  $cnt++;
 			  }
-			  $cnt++;
-		  }
-		  if ($cnt>0) { 
-			echo "drawChart();
-			";
-		  } ?>
+			  if ($cnt>0) { 
+				echo "drawChart();
+				";
+			  }
+		  ?>
 		  
 		},
     });
@@ -348,10 +380,22 @@ function highlightTarget() {
 }
 
 function hideTarget() {
-	x=document.getElementsByClassName("droptarget");
-	for(var i=0;i<x.length;i++){
-		x[i].style.display='none';
-	}
+	x=document.getElementsById("showchart");
+	x.innerHTML=false;
+	document.toggle.submit();
+}
+
+function hideTarget() {
+	x=document.getElementById("showchart");
+	x.innerHTML=true;
+	document.toggle.submit();
+}
+
+function hidechart() {
+	x=document.getElementById("showchart");
+	alert('happened');	
+	x.innerHTML=false;
+	document.toggle.submit();	
 }
 
 function drop(event) {

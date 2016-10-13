@@ -53,6 +53,7 @@ class scripts extends CI_Controller {
 				  $this->session->set_userdata(['binds'=>$binds]);
 			}
 		}
+		
 		$this->load->view('templates/header',$headerdata);	
 		if (!isset($query_id)) {
 			$errmsg=array('errmsg'=>"No query has been selected");

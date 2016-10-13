@@ -177,27 +177,35 @@ class menu_model extends CI_Model
 	
 	function get_item($menu_item_id)
 	{
-		$sql="select pm.parent_menu_id l1_parent_menu_id,mi.parent_menu_id l2_parent_menu_id,mi.menu_id,l.link_id, label,link_type,linkstr,target_id 
-		from links l join menus2 mi on l.link_id=mi.link_id 
-		left outer join menus2 pm on pm.menu_id=mi.parent_menu_id where mi.menu_id=?";
+		$sql="select l2.parent_menu_id l1_parent_menu_id,i.parent_menu_id l2_parent_menu_id,i.menu_id,l.link_id, i.text i_text, l2.text l2_text, l1.text l1_text,link_type,linkstr,target_id 
+		from links l join menus2 i on l.link_id=i.link_id 
+		left outer join menus2 l2 on l2.menu_id=i.parent_menu_id 
+		left outer join menus2 l1 on l1.menu_id=l2.parent_menu_id
+		where i.menu_id=?";
 
         $query = $this->db->query($sql,array($menu_item_id));
 		$result=$query->result_array();
 
-		foreach ($result as $row) {
-			if ($row['link_type'] == 'query') {
-				$link=$row['linkstr'].'/index/'.$row['target_id'];
-			} elseif($row['link_type'] == 'system') {
-				$link=$row['linkstr'];
-			}
-			if ($row['l1_parent_menu_id']) 
-				$menu_path=$row['l1_parent_menu_id'].'/';
-			else
-				$menu_path='';
-			$menu_path.=$row['l2_parent_menu_id'].'/'.$row['menu_id'];
+		$row=$result[0];  // find first if in more than one menu
+		if ($row['link_type'] == 'query') {
+			$link=$row['linkstr'].'/index/'.$row['target_id'];
+		} elseif($row['link_type'] == 'system') {
+			$link=$row['linkstr'];
 		}
-		
+		if ($row['l2_parent_menu_id']) 
+			$menu_path=$row['l2_parent_menu_id'].'/'.$row['menu_id'];
+		else
+			$menu_path='';
+
+		if ($row['l1_text']) {
+			$breadcrumbs=array([$row['l1_text']=>''],[$row['l2_text']=>''],[$row['i_text']=>$menu_path]);
+		} else {
+			$breadcrumbs=array($row['l2_text']=>'',$row['i_text']=>$menu_path);				
+		}
+
+
 		$this->session->set_userdata(['menu_path'=>$menu_path]);
+		$this->session->set_userdata(['breadcrumbs'=>$breadcrumbs]);
 	
 		return $link;
 	}
