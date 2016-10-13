@@ -177,7 +177,7 @@ include("application/asset/inc/nav.php");
                     <input type="hidden" name="txt_queryid" id="txt_queryid" value="<?php echo $query_id;?>">
 					<input type="hidden" name="txt_verion" id="txt_version" value="<?php echo set_value('txt_version',$query['version']); ?>">
                     
-                    <input id="btn_validate" name="btn_validate" type="submit" class="btn btn-primary btn-sm" value="Validate" disabled />
+                    <input id="btn_validate" name="btn_validate" type="submit" class="btn btn-primary btn-sm" value="Validate" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_create" name="btn_create" type="submit" class="btn btn-primary btn-sm" value="Create" disabled />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_action" name="btn_action" type="submit" class="btn btn-primary btn-sm" value="Add Action" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_columns" name="btn_columns" type="submit" class="btn btn-primary btn-sm" value="Column Options" />					

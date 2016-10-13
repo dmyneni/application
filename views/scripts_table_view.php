@@ -37,7 +37,7 @@ include ("application/asset/inc/nav.php");
 		//$breadcrumbs["New Crumb"] => "http://url.com"
 		include("application/asset/inc/ribbon.php");
 		
-		$this->session->set_userdata(['drawchart'=>true]);  // testing
+		$this->session->set_userdata(['showchart'=>false]);  // testing
 		
 	?>
 
@@ -46,28 +46,29 @@ include ("application/asset/inc/nav.php");
 			<!-- row -->
 			<div class="row"> 
 			<!-- NEW WIDGET START -->
-				<article 
-					<?php if ($this->session->userdata('drawchart')==true) 
+				<article id=dataWidget
+					<?php if ($this->session->userdata('showchart')==true) 
 						print 'class="col-xs-4 col-sm-5 col-md-6 col-lg-7"';
 					else 
 						print 'class="col-xs-4 col-sm-5 col-md-6 col-lg-11"';
 					?>
 					>
-					<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+
 						<!-- widget div-->
 						<div>							
 						<header>
 							<div class="pull-right">
-								<a href=<?php echo base_url(); echo "index.php/explain/index/$query_id"?>>Explain</a>&nbsp; &nbsp; 
+								<a href=<?php echo base_url(); echo "index.php/explain/index/$query_id"; ?> alt="Query details" title="Query details" >Explain</a>&nbsp; &nbsp; 
 							</div>
 							<div >&nbsp; &nbsp;
 								<div draggable="true" onmousedown="highlightTarget()" onmouseup="hideTarget()" ondrag="myFunction(event)" ondragstart="dragStart(event)" ondragend="hideTarget()" ondrag="dragging(event)" draggable="true" id="dragtarget" class="col-sm-3 col-md-4 col-lg-5">
 									<span class="widget-icon"> <i class="fa fa-table"></i> </span>
 									<?php echo $title; ?>
 								</div> 
-								<?php  if ($this->session->userdata('drawchart')==false) { ?>
-									&nbsp; &nbsp; <span><a onclick=showchart();><i class="fa fa-bar-chart"></a></i></span>
-								<?php } ?>
+									<span class="text-center" ><a href=# id="showChartIcon" onclick="showChart();" alt="Show chart" title="Show chart"
+									<?php  if ($this->session->userdata('showchart')==true) print " hidden "; ?>
+									><font size=+1><i class="fa fa-bar-chart"></i></font></a></span>
+									</span>
 							</div>
 						</header>
 
@@ -102,12 +103,10 @@ include ("application/asset/inc/nav.php");
 					</div>
 				</article>
 			<!-- NEW WIDGET START -->
-				<article class="col-xs-4 col-sm-4 col-md-4 col-lg-4" <?php if ($this->session->userdata('drawchart')==false) echo "hidden"; ?> >
+				<article  id=chartWidget class="col-xs-4 col-sm-4 col-md-4 col-lg-4" <?php if ($this->session->userdata('showchart')==false) echo "hidden"; ?> >
 					<div class="jarviswidget" id="wid-id-5" data-widget-editbutton="false" data-widget-custombutton="false">
 						<header><div>&nbsp; &nbsp; Chart
-							<?php  if ($this->session->userdata('drawchart')==true) {?>
-								&nbsp; &nbsp; <span class="pull-right"><a onclick=hidechart();><span class="fa-stack"><i class="fa fa-bar-chart fa-stack-1x"></i><font color=#ff7777><i class="fa fa-ban fa-stack-1x"></i></font></span></span></a></i></span>
-							<?php } ?>
+							&nbsp; &nbsp; <span ><a onclick="hideChart();" alt="Hide chart" title="Hide chart"><font color=#ff7777><i class="fa fa-ban"></i></font></a></span>
 						</header>
 						<div>
 							<canvas id="myChart"  width="200" height="200"></canvas>
@@ -116,11 +115,12 @@ include ("application/asset/inc/nav.php");
 							</div>
 						</div>
 					</div>
+					</div>
 				</article>
 			</div> <!-- end of row  -->
 		</section>
 	</div>
-	<form method=post name=toggle action=<? print base_url().'/index.php/scripts/index/'.$query_id;?>><input id=showchart type=hidden value=<?php echo $this->session->userdata('showchart');?>></form>
+	<form method=post name=toggle action=<?php print base_url().'/index.php/scripts/index/'.$query_id;?>><input id=showchart type=hidden value=<?php echo $this->session->userdata('showchart');?>></form>
 # 	foreach {bind...
 
 <?php //include required scripts
@@ -307,6 +307,7 @@ print "      {
 			var activePoints = myChart.getElementAtEvent(evt);
 			var datasetIndex = activePoints[0]._datasetIndex;
 			var index = activePoints[0]._index;
+			hideChart();
 			table.search(myChart.tooltip._data.labels[index]).draw();
 		}
 	);
@@ -380,22 +381,28 @@ function highlightTarget() {
 }
 
 function hideTarget() {
-	x=document.getElementsById("showchart");
-	x.innerHTML=false;
-	document.toggle.submit();
+	x=document.getElementsByClassName("droptarget");
+	for(var i=0;i<x.length;i++){
+		x[i].style.display='none';
+	}
 }
 
-function hideTarget() {
-	x=document.getElementById("showchart");
-	x.innerHTML=true;
-	document.toggle.submit();
+function showChart() {
+	x=document.getElementById("dataWidget");
+	x.className="col-xs-4 col-sm-5 col-md-6 col-lg-7";
+	x=document.getElementById("chartWidget");	
+	x.style.display='block';
+	x=document.getElementById("dataWidget");	
+	x.style.display='none';
 }
 
-function hidechart() {
-	x=document.getElementById("showchart");
-	alert('happened');	
-	x.innerHTML=false;
-	document.toggle.submit();	
+function hideChart() {
+	x=document.getElementById("dataWidget");
+	x.className="col-xs-4 col-sm-5 col-md-6 col-lg-11";	
+	x=document.getElementById("chartWidget");	
+	x.style.display='none';	
+	x=document.getElementById("dataWidget");	
+	x.style.display='block'		
 }
 
 function drop(event) {
