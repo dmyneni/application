@@ -40,8 +40,6 @@ include("application/asset/inc/nav.php");
 		$breadcrumbs["Forms"] = "";
 		include("application/asset/inc/ribbon.php");
 	?>
-
-	<!-- MAIN CONTENT -->
 			
 <br/>
 		<!-- widget grid -->
@@ -106,7 +104,7 @@ include("application/asset/inc/nav.php");
 										</section>
 										<section>
 										<div class="note">
-														<a href="javascript:void(0)">Request an account</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<a href="<?php echo base_url() ?>index.php/register">Request an account</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<a href="javascript:void(0)" align="right">Forgot password?</a>
 													</div>
 										</section>
@@ -146,6 +144,7 @@ include("application/asset/inc/nav.php");
 
 
 		<!-- Modal -->
+		</div>
 <!-- END MAIN PANEL -->
 <!-- ==========================CONTENT ENDS HERE ========================== -->
 
