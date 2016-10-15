@@ -24,13 +24,13 @@ class managequery_model extends CI_Model {
         $i = 0;
     }
  
-    function get_datatables()
+    function get_datatables($db_type)
     {
 		if (isset($_POST['length'])) {
         if($_POST['length'] != -1)
         $this->db_target->limit($_POST['length'], $_POST['start']); 
 		}
-        $query = $this->db_target->query("select query_id,query_title,description,status from queries order by query_id desc");
+        $query = $this->db_target->query("select query_id,query_title,description,status from queries where query_type='".$db_type."' order by query_id desc");
 		$results=array('tabledata'=>$query->result_array(),'count_filtered'=>$query->num_rows());
         return $results;
     }
