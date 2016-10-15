@@ -6,8 +6,16 @@ class menu_model extends CI_Model
 	{
 		// Call the Model constructor
 		parent::__construct();
+		$this->load->helper('date');
 	}
-	
+
+	public function getTimeStamp()
+	{
+		$datestring = '%Y-%m-%d %H:%i:%s';
+		$time = now("America/Chicago");
+		$curtimestamp=mdate($datestring, $time);
+		return $curtimestamp;
+	}
 	public function buildmenu()
 	{
 		
