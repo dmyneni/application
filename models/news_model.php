@@ -6,7 +6,7 @@ class news_model extends CI_Model
      {
           // Call the Model constructor
           parent::__construct();
-          
+          $this->load->helper('date');
      }
           
      
@@ -25,6 +25,16 @@ class news_model extends CI_Model
      	$this->db->insert('news', $news);
      	$menuid=$this->db->insert_id();
      	return $menuid;
+     }
+     
+     function getnews()
+     {
+     	$datestring = '%Y-%m-%d 00:00:00';
+     	$time = now("America/Chicago");
+     	$curtimestamp=mdate($datestring, $time);
+     	//echo "select headline,details from news where start_time>='".$curtimestamp."'";
+     	$query =$this->db->query("select headline,details from news where start_time>='".$curtimestamp."'");
+     	return $query->result_array();
      }
      
 
