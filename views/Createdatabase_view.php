@@ -77,7 +77,7 @@ include("application/asset/inc/nav.php");
 							<!-- widget content -->
 							<div class="widget-body no-padding">
           <?php 
-          $attributes = array("class" => "smart-form", "id" => "createdatabase", "name" => "createdatabaseform");
+          $attributes = array("class" => "smart-form", "id" => "createdatabase", "name" => "createdatabaseform","onsubmit" =>"getdata()");
           echo form_open("createdatabase/index", $attributes);?>
           <fieldset>
 
@@ -86,7 +86,7 @@ include("application/asset/inc/nav.php");
                
                <div class="row">
 					<section>
-						<label class="label col col-2">Database Type</label>
+						<label class="label col col-3">Database Type</label>
 						<div class="col col-6">
 							<label class="input"> 
 								<select onchange="settype()" class="form-control"  id="databasetype" name="databasetype"  >
@@ -106,7 +106,7 @@ include("application/asset/inc/nav.php");
 				<div id=mysqltype style="display:block">
 						<div class="row">
 							<section>
-								<label class="label col col-2">Hostname</label>
+								<label class="label col col-3">Hostname</label>
 								<div class="col col-6">
 									<label class="input"> 
 										<input class="form-control" id="hostname" name="hostname" placeholder="Hostname" type="text" value="<?php echo set_value('hostname'); ?>" />
@@ -121,7 +121,7 @@ include("application/asset/inc/nav.php");
 						
 		               <div class="row" id="portdiv">
 							<section>
-								<label class="label col col-2">port</label>
+								<label class="label col col-3">port</label>
 								<div class="col col-6">
 									<label class="input"> 
 										<input class="form-control" id="port" name="port" placeholder="Port Number" type="text" value="<?php echo set_value('port'); ?>" />
@@ -138,7 +138,7 @@ include("application/asset/inc/nav.php");
 			   <div id=oracletype style="display:none">
 						<div class="row">
 							<section>
-								<label class="label col col-2">TNS Entry</label>
+								<label class="label col col-3">TNS Entry</label>
 								<div class="col col-6">
 									<label class="input"> 
 										<textarea class="form-control" rows="6" cols="100" id="tns" name="tns"><?php echo set_value('tns');?></textarea>
@@ -154,7 +154,7 @@ include("application/asset/inc/nav.php");
 
 						<div class="row">
 							<section>
-								<label class="label col col-2">Database Account</label>
+								<label class="label col col-3">Database Account</label>
 								<div class="col col-6">
 									<label class="input"> 
 										<input class="form-control" id="account" name="account" placeholder="Database Account" type="text" value="<?php echo set_value('account'); ?>" />
@@ -171,7 +171,7 @@ include("application/asset/inc/nav.php");
 
                <div class="row">
 					<section>
-						<label class="label col col-2">Password</label>
+						<label class="label col col-3">Password</label>
 						<div class="col col-6">
 							<label class="input"> 
 							<input class="form-control" id="password" name="password" placeholder="Password" type="password" value="<?php echo set_value('password'); ?>" />
@@ -188,7 +188,7 @@ include("application/asset/inc/nav.php");
                
                <div class="row">
 					<section>
-						<label class="label col col-2">Database Name</label>
+						<label class="label col col-3">Database Name</label>
 						<div class="col col-6">
 							<label class="input"> 
 								<input class="form-control" id="dbname" name="dbname" placeholder="Database Name" type="text" value="<?php echo set_value('dbname'); ?>" />
@@ -204,7 +204,7 @@ include("application/asset/inc/nav.php");
               
                <div class="row">
 					<section>
-						<label class="label col col-2">Class</label>
+						<label class="label col col-3">Class</label>
 						<div class="col col-6">
 							<label class="input"> 
 			               <select class="form-control"  id="db_class" name="db_class"  >
@@ -222,11 +222,14 @@ include("application/asset/inc/nav.php");
 
                <div class="row">
 					<section>
-						<label class="label col col-2">Database Type</label>
-						<div class="col col-6">
-							<label class="input"> 
-								<input class="form-control" id="description" name="description" placeholder="Description" type="text" value="<?php echo set_value('description'); ?>" />  								 
-							</label>
+						<label class="label col col-3">Description</label>
+						<div class="col col-9">
+							<div id="summernote" class="summernote" ><?php echo form_error('description'); ?></div>
+							<input type="hidden" id="description" name="description">
+							<!--  <label class="input" id="description" name="description"> 
+								<input type="hidden" id="description" name="description" placeholder="Description" type="text" value="<?php echo set_value('description'); ?>" />  								 
+							</label>-->
+							
 							</div>
 				</section>
 				</div>
@@ -290,10 +293,36 @@ include("application/asset/inc/nav.php");
 	include("application/asset/inc/google-analytics.php"); 
 ?>    
 
-
+<script src="<?php echo ASSETS_URL; ?>/js/plugin/summernote/summernote.min.js"></script>
 
 <script type="text/javascript">
-    
+//alert($('#summernote'))
+function getdata()
+{
+	//$('.summernote').code();
+	//alert($('#summernote').summernote('code'));
+	document.getElementById("description").value=$('#summernote').summernote('code');
+	//document.getElementById("newsform").submit()
+}
+$(document).ready(function() {
+
+	//alert("augrra")
+	$('.summernote').summernote({
+		height: 200,
+		toolbar: [
+	    ['style', ['style']],
+	    ['font', ['bold', 'italic', 'underline', 'clear']],
+	    ['fontname', ['fontname']],
+	    ['color', ['color']],
+	    ['para', ['ul', 'ol', 'paragraph']],
+	    ['height', ['height']],
+	    ['table', ['table']],
+	    ['insert', ['link', 'picture', 'hr']],
+	    ['view', ['fullscreen', 'codeview', 'help']]
+
+	  ]
+	});
+})
  function settype()
  {
 	 if(document.getElementById("databasetype").value=="mysql") {

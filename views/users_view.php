@@ -50,7 +50,7 @@ include ("application/asset/inc/nav.php");
 						<br>
 						<header>
 							<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-							<h2></h2>
+							<h2>Manage Users</h2>
 							&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" onclick="add_user()"><i class="glyphicon glyphicon-plus"></i> Add User</button>
 							&nbsp;&nbsp;&nbsp;<button class="btn btn-default btn-sm" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
 						</header>		

@@ -214,7 +214,7 @@ include("application/asset/inc/nav.php");
 function getdata()
 {
 	//$('.summernote').code();
-	alert($('#summernote').summernote('code'));
+	//alert($('#summernote').summernote('code'));
 	document.getElementById("details").value=$('#summernote').summernote('code');
 	//document.getElementById("newsform").submit()
 }

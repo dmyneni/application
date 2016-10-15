@@ -105,7 +105,7 @@ include("application/asset/inc/nav.php");
 										<section>
 										<div class="note">
 														<a href="<?php echo base_url() ?>index.php/register">Request an account</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<a href="javascript:void(0)" align="right">Forgot password?</a>
+														<a href="<?php echo base_url() ?>index.php/fpassword" align="right">Forgot password?</a>
 													</div>
 										</section>
 									</fieldset>

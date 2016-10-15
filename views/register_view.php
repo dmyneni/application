@@ -87,7 +87,7 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-4">Username</label>
 						<div class="col col-8">
 							<label class="input"> <i class="icon-append fa fa-user"></i>
-								<input class="form-control" id="username" name="username" placeholder="Username" type="text" readonly="true" value="<?php   echo set_value('username');;?>" />
+								<input class="form-control" id="username" name="username" placeholder="Username" type="text"  value="<?php   echo set_value('username');;?>" />
   								 
 							</label>
 							</div>
@@ -148,7 +148,8 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-4">Phone Number</label>
 						<div class="col col-8">
 							<label class="input"> <i class="icon-append fa fa-phone"></i>
-                    		<input  id="phone" name="phone" type="tel" placeholder="Phone Number"  value="<?php  echo set_value('phone'); ?> ?>" />
+                    		
+                    		<input type="text" id="phone" name="phone" placeholder="Phone Number"  value="<?php  echo set_value('phone'); ?>" class="form-control" data-mask="(999) 999-9999" data-mask-placeholder= "X">
                     		
 							</label>
 							</div>
@@ -185,7 +186,7 @@ include("application/asset/inc/nav.php");
 					<section>
 						<label class="label col col-4">Any addition information for the administrator</label>
 						<div class="col col-8">
-							<label class="input"> <i class="icon-append fa fa-phone"></i>
+							
                     		<textarea  class="form-control" id="comment" name="comment" placeholder="Free text" rows="5"><?php echo set_value('comment'); ?></textarea>
                     		
 							</label>
