@@ -82,6 +82,12 @@ include("application/asset/inc/nav.php");
           $attributes = array("class" => "smart-form", "id" => "newsform", "name" => "newsform","onsubmit" =>"getdata()");
           echo form_open("news", $attributes);?>
           <fieldset>
+          <div class="row">
+					<section>
+						<label class="label col col-4"><?php echo $this->session->flashdata('status');?></label>
+				</section>
+				</div>
+          
                <div class="row">
 					<section>
 						<label class="label col col-2">Headline</label>
@@ -93,12 +99,7 @@ include("application/asset/inc/nav.php");
 							</div>
 				</section>
 				</div>
-				<div class="row">
-					<section>
-						<label class="label col col-4"><?php echo $this->session->flashdata('status');?></label>
-				</section>
-				</div>
-               <div class="row">
+				               <div class="row">
 				<span class="text-danger"><?php echo form_error('headline'); ?></span>&nbsp;
 				</div>
                <div class="row">
@@ -127,7 +128,7 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-2">Start Date</label>
 						<div class="col col-5">
 						<div class="input-group">
-							<input type="text" name="sdate" placeholder="Select a date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+							<input type="text" name="sdate" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy-mm-dd">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</div>
 							</div>
@@ -142,7 +143,7 @@ include("application/asset/inc/nav.php");
 						<label class="label col col-2">End Date</label>
 						<div class="col col-5">
 						<div class="input-group">
-							<input type="text" name="edate" placeholder="Select a date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+							<input type="text" name="edate" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy-mm-dd">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</div>
 							</div>
