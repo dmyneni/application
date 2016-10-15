@@ -27,7 +27,8 @@ class managequery extends CI_Controller {
  
     public function ajax_list()
     {
-        $list = $this->qry->get_datatables();
+    	$db_type=$this->createquery_model->get_db_type($this->session->userdata('current_account_id'));
+        $list = $this->qry->get_datatables($db_type);
         $data = array();
 		if (isset($_POST['start'])) {
 			$no = $_POST['start'];
@@ -39,7 +40,8 @@ class managequery extends CI_Controller {
             $row = array();
             $row[] = $query['query_id'];
 			$row[] = $query['query_title'];
-            $row[] = $query['description'];
+			$row[] ='<a href="'.base_url().'index.php/explain/index/'.$query['query_id'].'" >Explain</a>';
+            //$row[] = $query['description'];
             $row[] = $query['status'];
             //add html for action
             //$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_query('."'".$query['query_id']."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>';

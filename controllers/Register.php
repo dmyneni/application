@@ -28,26 +28,20 @@ class Register extends CI_Controller {
 		if(($this->session->userdata('username')!=""))
 		{
 			redirect('changemenu/index/1');
-		}else if ($this->form_validation->run() == FALSE){
-			$data=['roles'=>$this->register_model->roledetails()];
-		
-			$this->load->view('templates/header',$data);
-			$this->load->view('register_view',$data);
-			$this->load->view('templates/footer');
 		}else if ($this->input->post('btn_login') == "Submit"){
+			
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-			//$password = do_hash($this->input->post('password'), 'md5'); // MD5
 			$email = $this->input->post('email');
 			$phone=$this->input->post('phone');
 			$comment=$this->input->post('comment');
 			$roles=$this->input->post('roles');
 	
 			$insert_result = $this->register_model->insertuser($username,$password,$email,$phone,$comment,$roles);
-			//echo $username;
-			//echo $password;
-			echo "User $username successfully created";
-			//echo $insert_result;
+			redirect("login/index");
+		}else if ($this->form_validation->run() == FALSE){
+			$data=['roles'=>$this->register_model->roledetails()];
+			$this->load->view('register_view',$data);
 		}
 
 

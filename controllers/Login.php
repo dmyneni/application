@@ -52,7 +52,7 @@ class login extends CI_Controller
 
 			$data['page_nav']=$page_nav;
 			$this->load->view('login_view',$data);
-			$this->load->view('templates/footer');
+			//$this->load->view('templates/footer');
           }
           else
           {

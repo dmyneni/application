@@ -42,7 +42,7 @@ class Users extends CI_Controller {
             $row[] = $user['approved_by'];		
             $row[]=$this->user->getRoles($user['user_id']);
             //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_user('."'".$user['user_id']."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a><a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_user('."'".$user['user_id']."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            $row[] ='<button class="btn btn-xs btn-default" data-original-title="Edit Row" onclick="edit_user('."'".$user['user_id']."'".')"\"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default" data-original-title="Delete" onclick="delete_user('."'".$user['user_id']."'".')" \><i class="fa fa-times"></i></button>';
  
             $data[] = $row;
         }
