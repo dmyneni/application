@@ -45,9 +45,7 @@ class Roles extends CI_Controller {
             $row[] = $role->updated_by;
             $row[] = $role->approved_by;
             //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_role('."'".$role->role_id."'".')"><i class="glyphicon glyphicon-pencil">Edit</i></a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete" onclick="delete_role('."'".$role->role_id."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
- 
+            $row[] ='<button class="btn btn-xs btn-default" data-original-title="Edit Row" onclick="edit_role('."'".$role->role_id."'".')"\"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default" data-original-title="Delete" onclick="delete_role('."'".$role->role_id."'".')" \><i class="fa fa-times"></i></button>';
             $data[] = $row;
         }
 		if (isset($_POST['draw'])) {
