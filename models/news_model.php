@@ -33,8 +33,15 @@ class news_model extends CI_Model
      	$time = now("America/Chicago");
      	$curtimestamp=mdate($datestring, $time);
      	//echo "select headline,details from news where start_time>='".$curtimestamp."'";
-     	$query =$this->db->query("select headline,details from news where start_time>='".$curtimestamp."'");
+     	$query =$this->db->query("select news_item_id,headline,details from news where end_time>='".$curtimestamp."'");
      	return $query->result_array();
+     }
+     function get_news_byid($newsid)
+     {
+     	//echo "select news_item_id,headline,start_time,end_time,details from news where news_item_id=".$newsid;
+     	$query =$this->db->query("select news_item_id,headline,start_time,end_time,details from news where news_item_id=".$newsid);
+     	return $query->result_array()[0];
+     	//return 'durga';
      }
      
 
