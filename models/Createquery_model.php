@@ -11,6 +11,15 @@ class createquery_model extends CI_Model
 		  $this->tools_db=$this->load->database('default',TRUE);   
      }
 
+     public function getQueryColumns($query_id)
+     {
+     	
+     	$this->db->from('query_columns');
+     	$this->db->where('query_id',$query_id);
+     	$query = $this->db->get();
+     	return $query->result_array();
+     	 
+     }
      function insertdetails($title, $description, $query_type,$sql,$version)
      {
      	$data=array(
@@ -50,7 +59,7 @@ class createquery_model extends CI_Model
      	}
 
      	$counter=1;
-		if ($this->session->userdata['binds']) {
+		if (isset($this->session->userdata['binds'])) {
 			foreach($this->session->userdata['binds'] as $key=>$vals)
 			{
 				$bindarray=array('query_id'=> $query_id,
