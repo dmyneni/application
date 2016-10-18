@@ -3,8 +3,21 @@
 
 		<span class="ribbon-button-alignment"> 
 <!--			<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"><i class="fa fa-refresh"></i></span> -->
-			<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"><i class="fa fa-refresh"></i></span> 
+			<span id="refresh1" class="btn btn-ribbon"  data-title="refresh" rel="tooltip" data-placement="bottom" ><a style="text-decoration:none;color:white" href="<?php echo current_url();?>"><i class="fa fa-refresh"></i></a>
+			</span> 
+		
+		
 		</span>
+		<?php 
+		
+		if(strrpos(current_url(),'newspresentation')>0 )
+		{ ?>
+		<span class="ribbon-button-alignment pull-right">
+		<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i><a class="btn btn-ribbon hidden-xs" href="<?php echo base_url() ?>index.php/news">Add News</a></span>
+		</span> 
+		<?php }
+			
+			?>
 		<?php if ($this->session->userdata('username')) { ?>
 			<!-- breadcrumb -->
 			<ol class="breadcrumb">
@@ -19,6 +32,7 @@
 			</ol>
 			<!-- end breadcrumb -->		
 		<?php } ?>
+		
 		<!-- You can also add more buttons to the
 		ribbon for further usability
 
