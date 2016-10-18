@@ -51,8 +51,9 @@ include ("application/asset/inc/nav.php");
 						<header>
 							<span class="widget-icon"> <i class="fa fa-table"></i> </span>
 							<h2>Manage Users</h2>
-							&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" onclick="add_user()"><i class="glyphicon glyphicon-plus"></i> Add User</button>
-							&nbsp;&nbsp;&nbsp;<button class="btn btn-default btn-sm" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
+							<div class="widget-toolbar">
+								<span class="widget-icon"><button class="btn btn-xs btn-default" title="Add User" onclick="add_user()"><i class="fa fa-plus"></i></button></span>
+							</div>
 						</header>		
 						<!-- widget div-->
 						<div>		
